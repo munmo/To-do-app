@@ -1,8 +1,31 @@
 import React, {useState} from 'react';
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 
+const DATA = [
+  {
+    id: '1',
+    title: 'Buy cat litter',
+  },
+  {
+    id: '2',
+    title: 'Buy milk',
+  },
+  {
+    id: '3',
+    title: 'Call student centre',
+  },
+];
 const App = () => {
-  
+  const [selectedId, setSelectedId] = useState();
+
+  const renderItem = ({item}) => {
+    return (
+      <View style={[styles.item, {backgroundColor: '#f9c2ff'}]}>
+        <Text style={styles.title}>{item.title}</Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -10,7 +33,15 @@ const App = () => {
         <Text style={styles.btnText}>My Todo List</Text>
         <View style={styles.line}></View> 
       </View>
-      
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          extraData={selectedId}
+        />
+        
+      </SafeAreaView>
     </View>
   );
   
@@ -48,7 +79,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     width: '100%',
   },
- 
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
 });
 
 export default App;
