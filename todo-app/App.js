@@ -25,7 +25,7 @@ const App = () => {
       </View>
     );
   };
-
+  
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -40,7 +40,11 @@ const App = () => {
           keyExtractor={item => item.id}
           extraData={selectedId}
         />
-        
+        <TouchableOpacity
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>Add New Todo</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </View>
   );
@@ -82,6 +86,14 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
+  },
+  button: {
+    backgroundColor: '#841584',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    alignItems: 'center',
+    marginBottom: 10,
   },
 });
 
