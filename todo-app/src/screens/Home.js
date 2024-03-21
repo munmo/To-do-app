@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
+import {List} from "../components/List"
 
 const DATA = [
   {
@@ -14,17 +15,11 @@ const DATA = [
     id: '3',
     title: 'Call student centre',
   },
+  
 ];
-const App = () => {
+const Home = () => {
   const [selectedId, setSelectedId] = useState();
 
-  const renderItem = ({item}) => {
-    return (
-      <View style={[styles.item, {backgroundColor: '#f9c2ff'}]}>
-        <Text style={styles.title}>{item.title}</Text>
-      </View>
-    );
-  };
   
   return (
     <View style={styles.container}>
@@ -33,19 +28,8 @@ const App = () => {
         <Text style={styles.btnText}>My Todo List</Text>
         <View style={styles.line}></View> 
       </View>
-      <SafeAreaView style={styles.container}>
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          extraData={selectedId}
-        />
-        <TouchableOpacity
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Add New Todo</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
+      <List DATA={DATA}/>
+      
     </View>
   );
   
@@ -69,12 +53,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "black",
   },
-  item: {
-    padding: 8,
-    marginVertical: 2,
-    marginHorizontal: 5,
-    borderRadius: 7,
-  },
+  
   title: {
     fontSize: 15,
   },
@@ -83,18 +62,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     width: '100%',
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  button: {
-    backgroundColor: '#841584',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-    alignItems: 'center',
-    marginBottom: 10,
-  },
+  
 });
 
-export default App;
+export default Home;
