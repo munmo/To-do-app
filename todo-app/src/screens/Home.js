@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {List} from "../components/List"
+import AddTodo from "../components/AddTodo"
 
 const DATA = [
   {
@@ -17,7 +18,7 @@ const DATA = [
   },
   
 ];
-const Home = () => {
+const Home = ({ navigation}) => {
   const [selectedId, setSelectedId] = useState();
 
   
@@ -29,7 +30,7 @@ const Home = () => {
         <View style={styles.line}></View> 
       </View>
       <List DATA={DATA}/>
-      
+      <AddTodo navigation={navigation} />
     </View>
   );
   
