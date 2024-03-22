@@ -1,5 +1,6 @@
 import {View, Text, StyleSheet} from 'react-native'
 import { FlatList, SafeAreaView, StatusBar, TouchableOpacity,} from 'react-native';
+import AddTodo from './AddTodo';
 
 export const List = ({DATA}) => {
 
@@ -19,12 +20,7 @@ export const List = ({DATA}) => {
           keyExtractor={item => item.id}
          
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress ={() => {}}
-        >
-          <Text style={styles.buttonText}>Add New Todo</Text>
-        </TouchableOpacity>
+        <AddTodo />
       </SafeAreaView>
     )
 }
@@ -35,18 +31,7 @@ const styles = StyleSheet.create ({
         backgroundColor: '#fff',
         paddingHorizontal: 20,
       },
-      buttonText: {
-        color: 'white',
-        fontSize: 16,
-      },
-      button: {
-        backgroundColor: '#841584',
-        padding: 10,
-        borderRadius: 5,
-        marginTop: 10,
-        alignItems: 'center',
-        marginBottom: 10,
-      },
+     
       item: {
         padding: 8,
         marginVertical: 2,
