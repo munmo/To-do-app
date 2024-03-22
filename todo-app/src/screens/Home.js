@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {List} from "../components/List"
 
 const DATA = [
