@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
+
 const AddTodo = ({ navigation }) => {
   const handlePress = () => {
     navigation.navigate('Add New Todo');
@@ -9,6 +10,7 @@ const AddTodo = ({ navigation }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={handlePress}>
       <Text style={styles.buttonText}>Add New Todo</Text>
+
     </TouchableOpacity>
   );
 };
