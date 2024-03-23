@@ -1,12 +1,12 @@
 import {View, Text, StyleSheet} from 'react-native'
 import { FlatList, SafeAreaView, StatusBar, TouchableOpacity,} from 'react-native';
-import AddTodo from './AddTodo';
+
 
 export const List = ({DATA}) => {
 
         const renderItem = ({item}) => {
           return (
-            <TouchableOpacity style={[styles.item, { backgroundColor: '#f9c2ff' }]}>
+            <TouchableOpacity style={[styles.item, { backgroundColor: '#E17F2E' }]}>
                 <Text style={styles.title}>{item.title}</Text>
             </TouchableOpacity>
           );

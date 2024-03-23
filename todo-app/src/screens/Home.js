@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
   btnText:{
     fontSize: 25,
     fontWeight: "600",
-    color: "black",
+    color: "#222834",
+
   },
   
   title: {
