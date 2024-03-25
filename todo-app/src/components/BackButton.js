@@ -4,8 +4,7 @@ import { Text} from 'react-native-paper';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 
-
-const BackButton = () => {
+const BackButton = ({navigation}) => {
 
     return (
         <View style={styles.cancelButtonContainer}>
