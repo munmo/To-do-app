@@ -1,42 +1,16 @@
-import { View, StyleSheet, Button, TouchableOpacity} from "react-native";
+import { View, StyleSheet, TouchableOpacity} from "react-native";
 import * as React from 'react';
-import { Text, TextInput } from 'react-native-paper';
-import { useState } from 'react';
+import { Text} from 'react-native-paper';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Input from "../components/Input";
 
 export const AddNewTodo = ({ navigation }) => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+
   
     return (
         <View style={styles.container}>
-            <Text style={styles.btnText}>Title</Text>
-            <TextInput
-  value={title}
-  onChangeText={text => setTitle(text)}
-  activeUnderlineColor="orange"
-                textColor="#222834"
-  style={{
-    backgroundColor: "#768583",
-    borderTopLeftRadius: 15, 
-    borderTopRightRadius: 15, 
-    borderBottomWidth: 0, 
-    paddingHorizontal: 10,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    }}
-/>
-            <Text style={styles.btnText}>Description</Text>
-            <TextInput style={styles.textInput}
-                value={description}
-                onChangeText={text => setDescription(text)}
-                multiline
-                numberOfLines={4}
-                activeUnderlineColor="orange"
-                textColor="#222834"
-            
-            />
+            <Input />
 
             <View style={styles.cancelButtonContainer}>
             <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
