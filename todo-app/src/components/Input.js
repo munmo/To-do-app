@@ -3,7 +3,7 @@ import { Text, TextInput } from 'react-native-paper';
 import { useState } from 'react';
 
 
-export const Input = () => {
+const Input = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
   
@@ -31,12 +31,6 @@ export const Input = () => {
             )}
 
 const styles = StyleSheet.create({
-    
-    buttonText:{
-        color: 'white',
-        fontSize: 20,
-        
-      },
       btnText:{
           fontSize: 20,
           fontWeight: "500",

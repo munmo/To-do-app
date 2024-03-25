@@ -1,9 +1,9 @@
 import { View, StyleSheet, TouchableOpacity} from "react-native";
 import * as React from 'react';
 import { Text} from 'react-native-paper';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Input from "../components/Input";
+import BackButton from "../components/BackButton";
 
 export const AddNewTodo = ({ navigation }) => {
 
@@ -11,13 +11,7 @@ export const AddNewTodo = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Input />
-
-            <View style={styles.cancelButtonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-                 <Text style={styles.buttonText}><FontAwesome5 name="backspace" size={24} color="#E17F2E"/>  Cancel</Text>
-            </TouchableOpacity>
-            
-            </View>
+            <BackButton />
       
             <View style={styles.saveButtonContainer}>
             <TouchableOpacity style={styles.button} >
@@ -35,16 +29,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         
     },
-    cancelButtonContainer: {
-        position: 'absolute',
-        bottom: 50,
-        left: 50,
-        backgroundColor: '#393E47',
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-      
-    },
     saveButtonContainer:{
       position: 'absolute',
         bottom: 50,
@@ -60,12 +44,6 @@ const styles = StyleSheet.create({
       fontSize: 20,
       
     },
-    btnText:{
-        fontSize: 20,
-        fontWeight: "500",
-        color: "#222834",
-    
-      },
     textInput:{
         backgroundColor: "#768583",
                 borderTopLeftRadius: 15, 
