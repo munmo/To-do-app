@@ -11,5 +11,7 @@ npx expo start
 Choose desired emulator - iOS or Android
 ```
 <strong> Required libraries </strong>
+```
 npm i @expo/vector-icons
 npm install react-native-paper
+```
