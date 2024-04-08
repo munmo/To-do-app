@@ -1,59 +1,89 @@
-import React, {useState} from 'react';
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
-import {List} from "../components/List"
-import AddTodo from "../components/AddTodo"
+import React, { useState, useEffect } from 'react';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const DATA = [
-  {
-    id: '1',
-    title: 'Buy cat litter',
-    description: 'Buy Bentonite, not tofuasdfasdfasdfsadfsdfsdfsadfsadfsadfsadfsadfsadfsadfsadfsafsadfsadfsadfsd',
-  },
-  {
-    id: '2',
-    title: 'Buy milk',
-  },
-  {
-    id: '3',
-    title: 'Call student centre',
-  },
-  {
-    id: '4',
-    title: 'Run dish washer',
-  },
-  {
-    id: '5',
-    title: 'Run dish washer',
-  },
-  {
-    id: '6',
-    title: 'Run dish washer',
-  },
-  {
-    id: '7',
-    title: 'Run dish washer',
-  },
+const Home = ({ route, navigation }) => {
+  const [todos, setTodos] = useState([]);
+  const [expandedId, setExpandedId] = useState(null);
 
-  
-];
-const Home = ({ navigation}) => {
-  const [selectedId, setSelectedId] = useState();
+  useEffect(() => {
+    const loadTodos = async () => {
+      try {
+        const todosJSON = await AsyncStorage.getItem('todos');
+        console.log('Loaded todos from storage', todosJSON);
+        if (todosJSON) {
+          const todos = JSON.parse(todosJSON).map(todo => ({ ...todo, isExpanded: false }));
+          setTodos(todos);
+        }
+      } catch (error) {
+        console.error('Failed to load todos:', error);
+      }
+    };
 
-  
+    loadTodos();
+  }, []);
+
+  useEffect(() => {
+    if (route.params?.newTodo) {
+      setTodos(prevTodos => [...prevTodos, route.params.newTodo]);
+    }
+  }, [route.params?.newTodo]);
+
+  const toggleExpand = id => {
+    setExpandedId(id === expandedId ? null : id);
+  };
+
+  const renderItem = ({ item }) => {
+    const isExpanded = item.id === expandedId;
+
+    return (
+      <TouchableOpacity onPress={() => toggleExpand(item.id)}>
+        <View style={styles.item}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text style={styles.title}>{item.title}</Text>
+            <MaterialIcons name={isExpanded ? "keyboard-arrow-up" : "keyboard-arrow-down"} size={24} color="#222834" />
+          </View>
+          {isExpanded && (
+            <>
+              <Text style={styles.description}>{item.description}</Text>
+              <View style={styles.controlPanel}>
+                <TouchableOpacity onPress={() => console.log('Done pressed')}>
+                  <Ionicons name="cloud-done-sharp" size={24} color="green" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => console.log('Delete pressed')}>
+                  <FontAwesome name="trash" size={24} color="red" />
+                </TouchableOpacity>
+              </View>
+            </>
+          )}
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
-     
       <StatusBar style="auto" />
       <View style={styles.header}>
         <Text style={styles.btnText}>My Todo List</Text>
-        <View style={styles.line}></View> 
+        <View style={styles.line}></View>
       </View>
-      <List DATA={DATA}/>
-      <AddTodo navigation={navigation} />
-   
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={todos}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          extraData={expandedId}
+        />
+      </SafeAreaView>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Add New Todo')}>
+        <Text style={styles.buttonText}><Ionicons name="add-circle" size={24} color="#E17F2E" />  Add New Todo</Text>
+      </TouchableOpacity>
     </View>
   );
-  
 };
 
 const styles = StyleSheet.create({
@@ -62,29 +92,57 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 20,
   },
-  header:{
+  header: {
     justifyContent: "center",
     alignItems: "center",
-    flexDirection:"column",
+    flexDirection: "column",
     marginTop: 50,
     marginBottom: 20,
   },
-  btnText:{
+  btnText: {
     fontSize: 25,
     fontWeight: "600",
     color: "#222834",
-
   },
-  
+  item: {
+    padding: 8,
+    marginVertical: 2,
+    marginHorizontal: 5,
+    borderRadius: 7,
+  },
   title: {
-    fontSize: 15,
+    fontSize: 16,
+    color: '#222834',
+    fontWeight: 'bold',
   },
-  line:{
+  description: {
+    color: '#222834',
+    marginBottom: 5,
+  },
+  controlPanel: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 5,
+  },
+  line: {
     borderBottomColor: 'black',
     borderBottomWidth: 2,
     width: '100%',
   },
-  
+  button: {
+    backgroundColor: '#393E47',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    alignItems: 'center',
+    marginBottom: 10,
+    bottom: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 25,
+    fontWeight: '500',
+  },
 });
 
 export default Home;
