@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -39,30 +39,48 @@ const Home = ({ route, navigation }) => {
   const renderItem = ({ item }) => {
     const isExpanded = item.id === expandedId;
 
+    //Done Todo List
+    const handleDone = () => {
+        const updatedTodos = todos.map(todo =>
+            todo.id === item.id ? { ...todo, isDone: true } : todo
+        );
+        setTodos(updatedTodos);
+        AsyncStorage.setItem('todos', JSON.stringify(updatedTodos));
+    };
+
+    //Delete Todo List
+    const handleDelete = () => {
+        const updatedTodos = todos.filter(todo => todo.id !== item.id);
+        setTodos(updatedTodos);
+        AsyncStorage.setItem('todos', JSON.stringify(updatedTodos));
+    };
+
     return (
-      <TouchableOpacity onPress={() => toggleExpand(item.id)}>
-        <View style={styles.item}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={styles.title}>{item.title}</Text>
-            <MaterialIcons name={isExpanded ? "keyboard-arrow-up" : "keyboard-arrow-down"} size={24} color="#222834" />
-          </View>
-          {isExpanded && (
-            <>
-              <Text style={styles.description}>{item.description}</Text>
-              <View style={styles.controlPanel}>
-                <TouchableOpacity onPress={() => console.log('Done pressed')}>
-                  <Ionicons name="cloud-done-sharp" size={24} color="green" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => console.log('Delete pressed')}>
-                  <FontAwesome name="trash" size={24} color="red" />
-                </TouchableOpacity>
-              </View>
-            </>
-          )}
-        </View>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => toggleExpand(item.id)}>
+            <View style={styles.item}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <MaterialIcons name={isExpanded ? "keyboard-arrow-up" : "keyboard-arrow-down"} size={24} color="#222834" />
+                </View>
+                {isExpanded && (
+                    <>
+                        <Text style={styles.description}>{item.description}</Text>
+                        <View style={styles.controlPanel}>
+                            {!item.isDone && (
+                                <TouchableOpacity onPress={handleDone}>
+                                    <Ionicons name="cloud-done-sharp" size={24} color="green" />
+                                </TouchableOpacity>
+                            )}
+                            <TouchableOpacity onPress={handleDelete}>
+                                <FontAwesome name="trash" size={24} color="red" />
+                            </TouchableOpacity>
+                        </View>
+                    </>
+                )}
+            </View>
+        </TouchableOpacity>
     );
-  };
+};
 
   return (
     <View style={styles.container}>
