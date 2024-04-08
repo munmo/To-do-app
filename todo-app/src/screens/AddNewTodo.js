@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity} from "react-native";
+import { View, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
 import * as React from 'react';
 import Input from "../components/Input";
 import BackButton from "../components/BackButton";
@@ -10,6 +10,7 @@ export const AddNewTodo = ({ navigation }) => {
   
     return (
         <View style={styles.container}>
+          
             <Input />
             <BackButton navigation={navigation} />
             <SaveButton />

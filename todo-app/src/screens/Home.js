@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import {List} from "../components/List"
 import AddTodo from "../components/AddTodo"
 
@@ -7,6 +7,7 @@ const DATA = [
   {
     id: '1',
     title: 'Buy cat litter',
+    description: 'Buy Bentonite, not tofuasdfasdfasdfsadfsdfsdfsadfsadfsadfsadfsadfsadfsadfsadfsafsadfsadfsadfsd',
   },
   {
     id: '2',
@@ -16,6 +17,23 @@ const DATA = [
     id: '3',
     title: 'Call student centre',
   },
+  {
+    id: '4',
+    title: 'Run dish washer',
+  },
+  {
+    id: '5',
+    title: 'Run dish washer',
+  },
+  {
+    id: '6',
+    title: 'Run dish washer',
+  },
+  {
+    id: '7',
+    title: 'Run dish washer',
+  },
+
   
 ];
 const Home = ({ navigation}) => {
@@ -24,6 +42,7 @@ const Home = ({ navigation}) => {
   
   return (
     <View style={styles.container}>
+     
       <StatusBar style="auto" />
       <View style={styles.header}>
         <Text style={styles.btnText}>My Todo List</Text>
@@ -31,6 +50,7 @@ const Home = ({ navigation}) => {
       </View>
       <List DATA={DATA}/>
       <AddTodo navigation={navigation} />
+   
     </View>
   );
   
