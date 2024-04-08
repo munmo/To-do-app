@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FlatList, SafeAreaView, Text, TouchableOpacity, View, StyleSheet, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
 export const List = ({ DATA }) => {
   const [expandedIds, setExpandedIds] = useState([]);
@@ -26,11 +28,11 @@ export const List = ({ DATA }) => {
             <View style={styles.descriptionContainer}>
               <Text style={styles.description}>{item.description}</Text>
               <View style={styles.controlPanel}>
-                <TouchableOpacity onPress={() => console.log('Edit pressed')}>
-                  <Text>Edit</Text>
+                <TouchableOpacity onPress={() => console.log('Done pressed')}>
+                <Ionicons name="cloud-done-sharp" size={24} color="green" />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => console.log('Delete pressed')}>
-                  <Text>Delete</Text>
+                <FontAwesome name="trash" size={24} color="red" />
                 </TouchableOpacity>
               </View>
             </View>
