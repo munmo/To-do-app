@@ -5,29 +5,29 @@ import { useState } from 'react';
 
 const Input = () => {
     const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-  
-    return (
-        <View >
-            <Text style={styles.btnText}>Title</Text>
-            <TextInput style={styles.textInput}
-                value={title}
-                onChangeText={text => setTitle(text)}
-                activeUnderlineColor="orange"
-                textColor="#222834"
+  const [description, setDescription] = useState('');
 
-            />
-            <Text style={styles.btnText}>Description</Text>
-            <TextInput style={styles.textInput}
-                value={description}
-                onChangeText={text => setDescription(text)}
-                multiline
-                numberOfLines={4}
-                activeUnderlineColor="orange"
-                textColor="#222834"
-            
-            />
-            </View>
+    return (
+        <View style={styles.container}>
+      <Text style={styles.btnText}>Title</Text>
+      <TextInput
+        style={styles.textInput}
+        value={title}
+        onChangeText={text => setTitle(text)}
+        activeUnderlineColor="orange"
+        textColor="#222834"
+      />
+      <Text style={styles.btnText}>Description</Text>
+      <TextInput
+        style={styles.textInput}
+        value={description}
+        onChangeText={text => setDescription(text)}
+        multiline
+        numberOfLines={4}
+        activeUnderlineColor="orange"
+        textColor="#222834"
+      />
+      </View>
             )}
 
 const styles = StyleSheet.create({

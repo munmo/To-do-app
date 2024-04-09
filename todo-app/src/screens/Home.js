@@ -3,29 +3,22 @@ import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View, TouchableOpa
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AddTodo from '../components/AddTodo';
+import { loadTodos, saveTodos } from '../datamodel/TodoModel';
 
 const Home = ({ route, navigation }) => {
   const [todos, setTodos] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
 
+  // Load the todos when the component mounts
   useEffect(() => {
     const loadTodos = async () => {
-      try {
-        const todosJSON = await AsyncStorage.getItem('todos');
-        console.log('Loaded todos from storage', todosJSON);
-        if (todosJSON) {
-          const todos = JSON.parse(todosJSON).map(todo => ({ ...todo, isExpanded: false }));
-          setTodos(todos);
-        }
-      } catch (error) {
-        console.error('Failed to load todos:', error);
-      }
+      const todos = await loadTodos();
+      setTodos(todos);
     };
-
-    loadTodos();
   }, []);
 
+  // Update the todos when a new todo is added through navigation
   useEffect(() => {
     if (route.params?.newTodo) {
       setTodos(prevTodos => [...prevTodos, route.params.newTodo]);
@@ -41,18 +34,18 @@ const Home = ({ route, navigation }) => {
 
     //Done Todo List
     const handleDone = () => {
-        const updatedTodos = todos.map(todo =>
-            todo.id === item.id ? { ...todo, isDone: true } : todo
-        );
-        setTodos(updatedTodos);
-        AsyncStorage.setItem('todos', JSON.stringify(updatedTodos));
+      const updatedTodos = todos.map(todo =>
+        todo.id === item.id ? { ...todo, isDone: true } : todo
+      );
+      setTodos(updatedTodos);
+      saveTodos(updatedTodos);
     };
 
     //Delete Todo List
     const handleDelete = () => {
-        const updatedTodos = todos.filter(todo => todo.id !== item.id);
-        setTodos(updatedTodos);
-        AsyncStorage.setItem('todos', JSON.stringify(updatedTodos));
+      const updatedTodos = todos.filter(todo => todo.id !== item.id);
+      setTodos(updatedTodos);
+      saveTodos(updatedTodos);
     };
 
     return (
@@ -95,11 +88,10 @@ const Home = ({ route, navigation }) => {
           renderItem={renderItem}
           keyExtractor={item => item.id}
           extraData={expandedId}
+
         />
       </SafeAreaView>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Add New Todo')}>
-        <Text style={styles.buttonText}><Ionicons name="add-circle" size={24} color="#E17F2E" />  Add New Todo</Text>
-      </TouchableOpacity>
+      <AddTodo navigation={navigation} />
     </View>
   );
 };
@@ -146,21 +138,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
     borderBottomWidth: 2,
     width: '100%',
-  },
-  button: {
-    backgroundColor: '#393E47',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-    alignItems: 'center',
-    marginBottom: 10,
-    bottom: 20,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 25,
-    fontWeight: '500',
-  },
+  }
 });
 
 export default Home;

@@ -8,10 +8,10 @@ const BackButton = ({navigation}) => {
 
     return (
         <View style={styles.cancelButtonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-                 <Text style={styles.buttonText}><FontAwesome5 name="backspace" size={24} color="#E17F2E"/>  Cancel</Text>
-            </TouchableOpacity>
-            </View>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+          <Text style={styles.buttonText}><FontAwesome5 name="backspace" size={24} color="#E17F2E" />  Cancel</Text>
+        </TouchableOpacity>
+      </View>
     )
 }
 

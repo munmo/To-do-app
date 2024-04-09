@@ -2,14 +2,13 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const AddTodo = ({ navigation, onAddTodo }) => {
+const AddTodo = ({ navigation }) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Add New Todo', { onAddTodo })}>
+    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Add New Todo')}>
       <Text style={styles.buttonText}><Ionicons name="add-circle" size={24} color="#E17F2E" />  Add New Todo</Text>
     </TouchableOpacity>
   );
 };
-
 
 const styles = StyleSheet.create({
   button: {
