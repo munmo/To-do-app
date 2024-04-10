@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 
 const Input = () => {
-    const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
     return (
