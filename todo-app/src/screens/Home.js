@@ -9,6 +9,7 @@ const Home = ({ route, navigation }) => {
   const [todos, setTodos] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
 
+  // Load the todos when the component mounts
   useEffect(() => {
     const loadInitialTodos = async () => {
       const initialTodos = await loadTodos();
@@ -17,16 +18,19 @@ const Home = ({ route, navigation }) => {
     loadInitialTodos();
   }, []);
 
+  // Update the todos when a new todo is added through navigation
   useEffect(() => {
     if (route.params?.newTodo) {
       setTodos(prevTodos => [...prevTodos, route.params.newTodo]);
     }
   }, [route.params?.newTodo]);
 
+  // Expand Todo description 
   const toggleExpand = id => {
     setExpandedId(id === expandedId ? null : id);
   };
 
+  // Done Todo list
   const handleDone = id => {
     const updatedTodos = todos.map(todo =>
       todo.id === id ? { ...todo, isDone: true } : todo
@@ -35,6 +39,7 @@ const Home = ({ route, navigation }) => {
     saveTodos(updatedTodos);
   };
 
+  // Delete Todo List
   const handleDelete = id => {
     const updatedTodos = todos.filter(todo => todo.id !== id);
     setTodos(updatedTodos);
