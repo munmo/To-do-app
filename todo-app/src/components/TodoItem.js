@@ -29,7 +29,7 @@ const TodoItem = ({ item, isExpanded, toggleExpand, handleDone, handleDelete }) 
                 </TouchableOpacity>
               )}
               <TouchableOpacity onPress={handleDeletePress}>
-                <FontAwesome name="trash" size={24} color="red" />
+                <FontAwesome name="trash" size={24} color="#393E47" />
               </TouchableOpacity>
             </View>
           </>
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     marginVertical: 2,
     marginHorizontal: 5,
     borderRadius: 7,
+    backgroundColor: '#E17F2E',
   },
   title: {
     fontSize: 16,
